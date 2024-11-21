@@ -1,12 +1,80 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
+    <meta charset="utf-8">
+    <title>Trivia Quiz</title>
 </head>
 
 <body>
-	<div id="change-it">Is this thing on?</div>
-	<script type="text/javascript" src="/script.js"></script>
+    <form id="form">
+        <label>Name:
+            <input type="text" id="Name">
+        </label>
+        <label>Hometown:
+            <input type="text" id="Hometown">
+        </label>
+        <button type="submit">Save</button>
+    </form>
+
+    <section>
+        <h2>Your name:</h2>
+        <h3 id="display-name"></h3>
+        <h3 id="display-score">Your Score: 0</h3> <!-- Will display the score here -->
+    </section>
+
+    <section id="questions">
+    <div class="question">
+        <div>How many hours are in a day?</div>
+        <ol>
+            <li>5</li>
+            <li>6</li>
+            <li>25</li>
+            <li>24</li>
+        </ol>
+    </div>
+    
+    <div class="question">
+        <div>How many states are in the US?</div>
+        <ol>
+            <li>50</li>
+            <li>10</li>
+            <li>20</li>
+            <li>40</li>
+        </ol>
+    </div>
+    
+    <div class="question">
+        <div>How many days are in a week?</div>
+        <ol>
+            <li>4</li>
+            <li>2</li>
+            <li>9</li>
+            <li>7</li>
+        </ol>
+    </div>
+    
+    <div class="question">
+        <div>How many continents are in the world?</div>
+        <ol>
+            <li>1</li>
+            <li>5</li>
+            <li>9</li>
+            <li>7</li>
+        </ol>
+    </div>
+    
+    <div class="question">
+        <div>How many planets are in the Solar System?</div>
+        <ol>
+            <li>6</li>
+            <li>5</li>
+            <li>8</li>
+            <li>11</li>
+        </ol>
+    </div>
+</section>
+
+
+    <script type="text/javascript" src="./script.js"></script>
 </body>
 </html>

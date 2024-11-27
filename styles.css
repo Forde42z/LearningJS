@@ -1,0 +1,175 @@
+/* Start Page Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #673AB7, #8E24AA); /* Deep Purple and Magenta */
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.start-container {
+    text-align: center;
+    padding: 180px;
+    background-image: url('https://media1.tenor.com/m/4B2j48N2jMUAAAAC/20th-century-fox-logo.gif');
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+    transition: transform 0.3s ease;
+}
+
+.start-container:hover {
+    transform: scale(1.05);
+}
+
+.start-container h1 {
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.start-btn {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    color: #fff;
+    background: linear-gradient(45deg, #673AB7, #8E24AA); /* Deep Purple and Magenta */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+}
+
+.start-btn:hover {
+    background: linear-gradient(45deg, #673AB7, #8E24AA); /* Deep Purple and Magenta */
+    transform: translateY(-4px);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.start-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Keyframes for Background Gradient Animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* Game Page Styles */
+.game-container {
+    width: 100%;
+    max-width: 1050px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hidden */
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#quiz-image {
+    width: 100%;
+    border-radius: 10px;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+#options-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.option-btn {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8E24AA;
+    cursor: pointer;
+    transition: background-color 0.3s;
+	color: white;
+}
+
+.option-btn:hover {
+    background-color: deepskyblue;
+}
+
+#score-timer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+#score, #timer {
+    color: #555;
+}
+#restart-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #8E24AA;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: none; /* Initially hidden */
+}
+
+#restart-btn:hover {
+    background-color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .game-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .start-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    .option-btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #score-timer {
+        flex-direction: column;
+        font-size: 16px;
+    }
+}

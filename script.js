@@ -137,7 +137,7 @@ function checkAnswer(selected, correct) {
 // End the game
 function endGame() {
     clearInterval(timer);
-    optionsContainer.innerHTML = `<p>Your score is ${score}.</p>`;
+    optionsContainer.innerHTML = ``;
     quizImage.src = "Highscore.png"; // Clear image
 
     // Pause the background music when the game ends

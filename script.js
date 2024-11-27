@@ -1,53 +1,157 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var form = document.getElementById('form');
-    var questions = document.getElementById('questions');
-    var turns = 0;
-    var wins = 0;
-    var nameInput = document.getElementById('Name'); 
-    var displayName = document.getElementById('display-name');
-    var displayScore = document.getElementById('display-score'); 
+// Quiz data
+const quizData = [
+    {
+        image: "Shrek_Profile.webp",
+        correctAnswer: "Shrek",
+        options: ["Toy Story", "Finding Nemo", "The Lion King", "Shrek"]
+    },
+    {
+        image: "toyStory.jpeg",
+        correctAnswer: "Toy Story",
+        options: ["The Lion King", "Finding Nemo", "Shrek", "Toy Story"]
+    },
+    {
+        image: "Nemo.jfif",
+        correctAnswer: "Finding Nemo",
+        options: ["Toy Story", "Finding Nemo", "WALL-E", "Shrek"]
+    },
+    {
+        image: "Lion.webp",
+        correctAnswer: "The Lion King",
+        options: ["The Lion King", "The Jungle Book", "Shrek", "WALL-E"]
+    },
+    {
+        image: "Wall e.jfif",
+        correctAnswer: "WALL-E",
+        options: ["The Lion King", "Finding Nemo", "WALL-E", "Toy Story"]
+    },
+    {
+        image: "Froze.webp",
+        correctAnswer: "Frozen",
+        options: ["Frozen", "Moana", "Coco", "Tangled"]
+    },
+    {
+        image: "Profile_-_Moana.webp",
+        correctAnswer: "Moana",
+        options: ["Frozen", "Moana", "Encanto", "Raya and the Last Dragon"]
+    },
+    {
+        image: "coco.jfif",
+        correctAnswer: "Coco",
+        options: ["Coco", "The Book of Life", "Ratatouille", "Soul"]
+    },
+    {
+        image: "Ratatouille.jfif",
+        correctAnswer: "Ratatouille",
+        options: ["Coco", "Ratatouille", "Up", "Inside Out"]
+    },
+    {
+        image: "Monsters, Inc..jpeg",
+        correctAnswer: "Monsters, Inc.",
+        options: ["Ratatouille", "Up", "Toy Story 3", "Monsters, Inc."]
+    }
+];
 
-    // Add event listener for the form submission
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        var userName = nameInput.value; 
-        displayName.textContent = userName;
-    });
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 60;
+let timer;
 
-    // Add event listener for clicks on the questions section
-    questions.addEventListener('click', function(event) {
-        var target = event.target;
+// DOM elements
+const startPage = document.getElementById("start-page");
+const gamePage = document.getElementById("game-page");
+const quizImage = document.getElementById("quiz-image");
+const optionsContainer = document.getElementById("options-container");
+const scoreDisplay = document.getElementById("score");
+const timerDisplay = document.getElementById("timer");
+const endImage = document.getElementById("end-image"); // Image element for end game
+const restartButton = document.getElementById("restart-btn"); // Restart button
+const backgroundMusic = document.getElementById("background-music"); // Background music element
 
-        // Make sure the clicked element is an <li> inside a question list
-        if (target.tagName === 'LI') {
-            // Find the parent div with class "question" for the clicked li
-            var question = target.closest('.question');  // Find the closest parent div with the "question" class
+// Start the game
+document.getElementById("play-btn").addEventListener("click", startGame);
+restartButton.addEventListener("click", restartGame); // Add event listener for restarting the game
 
-            // Check if the parent question is found
-            if (question) {
-                var allOptions = question.querySelectorAll('li');  // Get all <li> elements for the current question
+function startGame() {
+    // Play the background music when the game starts
+    backgroundMusic.play(); 
 
-                // Disable all options for this question once an answer is clicked
-                allOptions.forEach(function(option) {
-                    option.setAttribute('disabled', 'true');  
-                    option.style.pointerEvents = 'none'; // Prevent further clicks visually
-                });
+    // Reset game state
+    currentQuestion = 0;
+    score = 0;
+    timeLeft = 60;
+    scoreDisplay.textContent = `Score: ${score}`;
+    timerDisplay.textContent = `Time: ${timeLeft}`;
 
-                var content = target.innerText;
+    // Hide the start page and show the game page
+    startPage.style.display = "none";
+    gamePage.style.display = "block";
 
-                // Check for correct answers
-                if (content === '24' || content === '7' || content === '50' || content === '8') {
-                    wins += 1;  // Increment wins if the answer is correct
-                }
-                turns += 1;  // Increment turns regardless of correctness
+    loadQuestion(); // Load the first question
+    startTimer(); // Start the countdown timer
+}
 
-                // Update score after 5 turns (questions answered)
-                if (turns === 5) {
-                    displayScore.textContent = `Your Score: ${wins}`;
-                }
-            } else {
-                console.error('Could not find the parent question for this click!');
-            }
+// Timer logic
+function startTimer() {
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Time: ${timeLeft}`;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endGame();
         }
+    }, 1000);
+}
+
+// Load a question
+function loadQuestion() {
+    const question = quizData[currentQuestion];
+    quizImage.src = question.image;
+
+    optionsContainer.innerHTML = ""; // Clear previous options
+    question.options.forEach(option => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.classList.add("option-btn");
+        button.addEventListener("click", () => checkAnswer(option, question.correctAnswer));
+        optionsContainer.appendChild(button);
     });
-});
+}
+
+// Check the selected answer
+function checkAnswer(selected, correct) {
+    if (selected === correct) {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`;
+    }
+
+    // Load next question or end game
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        endGame();
+    }
+}
+
+// End the game
+function endGame() {
+    clearInterval(timer);
+    optionsContainer.innerHTML = `<p>Your score is ${score}.</p>`;
+    quizImage.src = "Highscore.png"; // Clear image
+
+    // Pause the background music when the game ends
+    backgroundMusic.pause(); 
+
+    // Show restart button
+    restartButton.style.display = "block";
+}
+
+// Restart the game
+function restartGame() {
+    // Hide restart button
+    restartButton.style.display = "none";
+    
+    // Reset the game and start over
+    startGame();
+}
